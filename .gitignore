@@ -1,0 +1,15 @@
+#ignore
+camera/*.sln
+
+camera/*.pidb
+camera/*.unityproj
+camera/*.csproj
+camera/*.userprefs
+camera/*.DS_Store
+
+camera/Keyboard
+camera/other_porject
+camera/**/*.meta
+camera/**/metadata
+camera/Library
+camera/ProjectSettings
