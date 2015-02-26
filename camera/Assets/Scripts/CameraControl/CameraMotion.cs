@@ -1,25 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CameraMotion : MonoBehaviour {
+
+	public Scrollbar Zoom;
+
 	private string cameraAnimFile;
 	private string cameraMotionKeyframe;
 	private float fps = 24;					//default fps is 24
 
 	//camera motion vector variables
 	private Vector3 cameraTranslateVector = Vector3.zero;
-	private float zoomInAndOut;
 
 	//gyroscope ration fix
-	private bool gyroEnable = true;
-	private readonly Quaternion baseIdentity = Quaternion.Euler(90, 0, 0);
-	private readonly Quaternion landscapeRight = Quaternion.Euler(0, 0, 90);
-	private readonly Quaternion landscapeLeft = Quaternion.Euler(0, 0, -90);
-	private readonly Quaternion upsideDown = Quaternion.Euler(0, 0, 180);
+	private bool gyroEnable;
 
-
-
-	
 	//gyroscope value
 	private Gyroscope gyro;
 	private Quaternion rotFix;
@@ -46,25 +42,14 @@ public class CameraMotion : MonoBehaviour {
 		cameraAnimFile = Setting.AnimFile;
 		cameraMotionKeyframe = null;
 		fps = Setting.Fps;
+		gyroEnable = true;
 	}
 
 	// Use this for initialization
 	void Start () {
-		//set the 
 		Time.fixedDeltaTime = 1.0f / fps;
 		Input.gyro.enabled = true;
-		//isGyro = Input.isGyroAvailable;
-		//initialize the gyroscope
 
-		/*
-		Transform originalParent = transform.parent; 
-		GameObject camParent = new GameObject("camParent");
-		camParent.transform.position = transform.position;
-		transform.parent = camParent.transform;
-		camParent.transform.parent = originalParent;
-*/
-		//found if there is gyroscopt in the tablet
-	
 		isGyro = Input.isGyroAvailable;
 	
 		if(isGyro)
@@ -124,8 +109,6 @@ public class CameraMotion : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
-
 		if (Status.IsReviewing){
 			//this option is when review the camera trace
 			//TODO:first get the current frame camera motion, then translate to there.
@@ -208,19 +191,5 @@ public class CameraMotion : MonoBehaviour {
 			}
 		}
 	}
-
-
-
-	void storeCameraAnim(){
-
-	}
-
-	void loadCameraAnim(){
-
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
+	
 }
