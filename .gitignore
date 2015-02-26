@@ -11,5 +11,6 @@ camera/Keyboard
 camera/other_porject
 camera/**/*.meta
 camera/**/metadata
-camera/Library
-camera/ProjectSettings
+camera/**/Temp
+#camera/Library
+#camera/ProjectSettings

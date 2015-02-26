@@ -34,10 +34,7 @@ public class BundleBuilder : Editor
 	[MenuItem("Custom Editor/Create AssetBunldes ALL")]
 	static void CreateAssetBunldesALL ()
 	{
-		
 		Caching.CleanCache ();
-		
-		
 		string Path = Application.dataPath + "/StreamingAssets/ALL.assetbundle";
 		
 		
