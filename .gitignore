@@ -5,12 +5,12 @@ camera/*.pidb
 camera/*.unityproj
 camera/*.csproj
 camera/*.userprefs
-camera/*.DS_Store
+#camera/*.DS_Store
 
 camera/Keyboard
 camera/other_porject
 camera/**/*.meta
-camera/**/metadata
+#camera/**/metadata
 camera/**/Temp
 #camera/Library
 #camera/ProjectSettings
