@@ -12,4 +12,12 @@ public class SystemControl : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void ReloadLevel(){
+		Application.LoadLevel ("VirtualCam");
+	}
+
+	public void QuitApp(){
+		Application.Quit();
+	}
 }

@@ -93,45 +93,6 @@ public class VCamUI : MonoBehaviour {
 			settingWindowRect =	GUI.Window(0,LayoutAndStrings.windowRect, settingWindow, "");
 		}
 
-		//load scene
-		if(GUI.Button(LayoutAndStrings.loadSceneBtnRect, "load scene"))//A 2D Rectangle defined by x, y position and width, height
-		{	
-			print (PathURL);
-			StartCoroutine(LoadGameObject(PathURL + "obj3fortest.assetbundle"));
-		}
-
-
-		if(GUI.Button(LayoutAndStrings.clearBtnRect,"clear scene"))
-		{
-			Application.LoadLevel("VirtualCam");
-		}
-
-		//recording button
-		if(!Status.IsReviewing){
-			if (GUI.Button(LayoutAndStrings.recordBtnRect, "Record")) {	//25frames per second   
-				if(Status.IsRecording)
-					Status.IsRecording = false;
-				else
-					Status.IsRecording = true;
-			}
-		}
-
-		//reviewing button
-		if(!Status.IsRecording){
-			if (GUI.Button (LayoutAndStrings.reviewBtnRect, "Review")) {
-				if(Status.IsReviewing)
-					Status.IsReviewing = false;
-				else
-					Status.IsReviewing = true;
-			}
-		}
-
-		//button of back, add by bubble, no use
-		if(GUI.Button(LayoutAndStrings.quitBtnRect, "Quit"))
-		{	
-			Application.Quit();
-		}
-
 
 		Status.CurrentFrameNum = Mathf.CeilToInt(GUI.HorizontalSlider (LayoutAndStrings.sliderRect, Status.CurrentFrameNum, 1.0f, Status.TotalFrameNum));
 
