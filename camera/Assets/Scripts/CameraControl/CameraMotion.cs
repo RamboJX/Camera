@@ -5,6 +5,7 @@ using System.Collections;
 public class CameraMotion : MonoBehaviour {
 
 	public Scrollbar Zoom;
+	public Scrollbar UpAndDown;
 
 	private string cameraAnimFile;
 	private string cameraMotionKeyframe;
@@ -20,7 +21,6 @@ public class CameraMotion : MonoBehaviour {
 	private Gyroscope gyro;
 	private Quaternion rotFix;
 	bool isGyro;
-
 	private Quaternion camRot;
 
 	private float FOV;
@@ -28,7 +28,7 @@ public class CameraMotion : MonoBehaviour {
 	char [] splitIdentifier = {';'};
 	string [] brokenString;
 	//joysticks
-	Joystick joystick;
+	private Joystick joystick;
 
 	
 	int moveSpeed;
@@ -40,7 +40,7 @@ public class CameraMotion : MonoBehaviour {
 
 	void Awake(){
 
-		Zoom = GameObject.FindGameObjectWithTag (Tags.zoomBar).GetComponent<Scrollbar> ();
+		//Zoom = GameObject.FindGameObjectWithTag (Tags.zoomBar).GetComponent<Scrollbar> ();
 		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
 		cameraAnimFile = Setting.AnimFile;
 		cameraMotionKeyframe = null;
@@ -78,6 +78,10 @@ public class CameraMotion : MonoBehaviour {
 	//	joysticks = FindObjectsOfType (typeof(Joystick)) as Joystick[];
 
 		moveSpeed = Setting.CameraMotionSpeed;
+	}
+
+	public void ResetUpAndDown(){
+		UpAndDown.value = 0.5f;
 	}
 
 	public void SetFov(){
@@ -123,8 +127,8 @@ public class CameraMotion : MonoBehaviour {
 			//joysticks[0] is the left joystick
 			cameraTranslateVector.x = joystick.position.x;		//left&right
 			//cameraTranslateVector.z = joystick.position.y;		//front back
-			cameraTranslateVector.z = transform.position.z;
-			cameraTranslateVector.y = joystick.position.y;		//up down
+			cameraTranslateVector.z = joystick.position.y;
+			cameraTranslateVector.y = (UpAndDown.value - 0.5f)*2f;		//up down
 			transform.Translate (cameraTranslateVector * moveSpeed * Time.fixedDeltaTime, Space.World);
 			
 	

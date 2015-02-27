@@ -57,8 +57,8 @@ public class Joystick : MonoBehaviour {
 		//let's build the GUI boundary, so we can clamp joystick movement
 		guiBoundary.min.x = defaultRect.x - guiTouchOffset.x;
 		guiBoundary.min.y = defaultRect.y - guiTouchOffset.y;
-		guiBoundary.max.x = defaultRect.x + 3 * guiTouchOffset.x;
-		guiBoundary.max.y = defaultRect.y + 3 * guiTouchOffset.y;
+		guiBoundary.max.x = defaultRect.x + guiTouchOffset.x;
+		guiBoundary.max.y = defaultRect.y + guiTouchOffset.y;
 	
 	}
 
