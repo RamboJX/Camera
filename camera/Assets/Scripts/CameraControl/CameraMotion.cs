@@ -23,12 +23,12 @@ public class CameraMotion : MonoBehaviour {
 
 	private Quaternion camRot;
 
-	float FOV;
+	private float FOV;
 
 	char [] splitIdentifier = {';'};
 	string [] brokenString;
 	//joysticks
-	Joystick [] joysticks;
+	Joystick joystick;
 
 	
 	int moveSpeed;
@@ -39,6 +39,9 @@ public class CameraMotion : MonoBehaviour {
 	ArrayList cameraCurrentFrameInfo = new ArrayList();
 
 	void Awake(){
+
+		Zoom = GameObject.FindGameObjectWithTag (Tags.zoomBar).GetComponent<Scrollbar> ();
+		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
 		cameraAnimFile = Setting.AnimFile;
 		cameraMotionKeyframe = null;
 		fps = Setting.Fps;
@@ -54,7 +57,6 @@ public class CameraMotion : MonoBehaviour {
 	
 		if(isGyro)
 		{
-
 			if (Screen.orientation == ScreenOrientation.LandscapeLeft) {
 				transform.eulerAngles = new Vector3 (90, 0, 0);
 			} 
@@ -73,38 +75,13 @@ public class CameraMotion : MonoBehaviour {
 			print ("NO gyro");
 		}
 
-		//get joysticks
-		joysticks = FindObjectsOfType (typeof(Joystick)) as Joystick[];
+	//	joysticks = FindObjectsOfType (typeof(Joystick)) as Joystick[];
 
 		moveSpeed = Setting.CameraMotionSpeed;
 	}
 
-
-	void OnGUI()
-	{
-		string fovInfo = "FOV:";
-		FOV = transform.camera.fieldOfView;
-
-		fovInfo = fovInfo + FOV;
-
-		GUI.Label (LayoutAndStrings.zoomLabelRect, fovInfo);
-
-
-
-		if(GUI.Button(LayoutAndStrings.zoominBtnRect, "ZOOM+"))//A 2D Rectangle defined by x, y position and width, height
-		{	
-
-
-			FOV = FOV + 5;
-		}
-
-		if(GUI.Button(LayoutAndStrings.zoomoutBtnRect, "ZOOM-"))//A 2D Rectangle defined by x, y position and width, height
-		{	
-
-
-			FOV = FOV - 5;
-		}
-		//this is the vfov, and the hfov is depend on aspect ratio.
+	public void SetFov(){
+		FOV = transform.camera.fieldOfView + 120f * (Zoom.value - 0.25f);
 		transform.camera.fieldOfView = FOV;
 	}
 
@@ -144,24 +121,20 @@ public class CameraMotion : MonoBehaviour {
 			}
 
 			//joysticks[0] is the left joystick
-			cameraTranslateVector.x = joysticks[0].position.x;		//left&right
-			cameraTranslateVector.z = joysticks[0].position.y;		//front back
-			cameraTranslateVector.y = joysticks[1].position.y;		//up down
+			cameraTranslateVector.x = joystick.position.x;		//left&right
+			//cameraTranslateVector.z = joystick.position.y;		//front back
+			cameraTranslateVector.z = transform.position.z;
+			cameraTranslateVector.y = joystick.position.y;		//up down
+			transform.Translate (cameraTranslateVector * moveSpeed * Time.fixedDeltaTime, Space.World);
 			
-			//zoomInAndOut = joysticks[1].position.x;
-			
-			transform.Translate (cameraTranslateVector * moveSpeed * Time.deltaTime, Camera.main.transform);
-			
-			//this is the vfov, and the hfov is depend on aspect ratio.
-			//transform.camera.fieldOfView = ((zoomInAndOut + 1.0f) * 90.0f);
-
+	
 			//then recoding the data.
 			//TODO: not like maya, in Unity3d the coordinate is left-hand.
 			//TODO: if we drag the slider, we should reset the frame  
 
 			if(Status.IsRecording){
 				//frameNum = Status.CurrentFrameNum;
-
+		
 				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +																	//frame number
 					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
 					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
@@ -174,12 +147,7 @@ public class CameraMotion : MonoBehaviour {
 					cameraFrameData.Add(cameraMotionKeyframe);
 
 				}
-			//	print (cameraMotionKeyframe);
-				//zoom in and zoom out
-				//Status.CurrentFrameNum
 				Status.CurrentFrameNum = Status.CurrentFrameNum + 1;
-			//	print(Status.CurrentFrameNum);
-			
 			}else{
 				Status.TotalFrameNum = cameraFrameData.Count;
 			}
