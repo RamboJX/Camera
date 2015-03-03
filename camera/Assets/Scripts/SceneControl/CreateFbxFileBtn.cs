@@ -72,27 +72,10 @@ public class CreateFbxFileBtn : MonoBehaviour {
 			}
 			// add an function as button click event
 			fbxBtn.button.onClick.AddListener(delegate {
-				LoadFbxFile(item.fileName);
+				fbxBtn.LoadFbxFile();
 		});
 			//set this new button to be the child of panel
 			newFbxFileBtn.transform.SetParent(fbxFileListScrollPanel);
 		}
-	}
-
-	//will set this envent to the btnInfo::loadFbxFile variable;
-	public void LoadFbxFile(string fileName){
-		Debug.Log ("I will load file:" + fileName);
-		string ObjectsPathURL = "file://" + fileName;
-		StartCoroutine(LoadGameObject(ObjectsPathURL));
-
-	}
-
-	private IEnumerator LoadGameObject(string path)
-	{
-		print (path);
-		WWW bundle = new WWW(path);
-		yield return bundle;
-		yield return Instantiate(bundle.assetBundle.mainAsset);
-		bundle.assetBundle.Unload(false);
 	}
 }
