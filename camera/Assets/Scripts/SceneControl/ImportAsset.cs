@@ -55,7 +55,7 @@ public class ImportAsset : MonoBehaviour
 	}
 	
 	//读取全部资源
-	
+	/*
 	private IEnumerator LoadALLGameObject(string path)
 	{
 		WWW bundle = new WWW(path);
@@ -71,7 +71,7 @@ public class ImportAsset : MonoBehaviour
 		yield return Instantiate(obj1);
 		bundle.assetBundle.Unload(false);
 	}
-	
+	*/
 	private IEnumerator LoadMainCacheGameObject(string path)
 	{
 		WWW bundle = WWW.LoadFromCacheOrDownload(path,5);
