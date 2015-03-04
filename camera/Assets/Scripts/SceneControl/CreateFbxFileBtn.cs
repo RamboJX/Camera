@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-[System.Serializable]
+//[System.Serializable]
 public class btnInfo{
 	public string fileName;
 	public bool isLoaded;
