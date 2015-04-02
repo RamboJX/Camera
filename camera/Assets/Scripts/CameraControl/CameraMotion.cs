@@ -6,9 +6,10 @@ public class CameraMotion : MonoBehaviour {
 
 	public Scrollbar Zoom;
 	public Scrollbar UpAndDown;
-	public Text FovText;
+	public Text FovText;			//display the fov
+	public Text CameraInfoText;			//display the camera informations
+	public GameObject systemController;	//get the system controller
 
-	private string cameraAnimFile;
 	private string cameraMotionKeyframe;
 	private float fps = 24;					//default fps is 24
 
@@ -43,9 +44,9 @@ public class CameraMotion : MonoBehaviour {
 
 		//Zoom = GameObject.FindGameObjectWithTag (Tags.zoomBar).GetComponent<Scrollbar> ();
 		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
-		cameraAnimFile = Setting.AnimFile;
+
 		cameraMotionKeyframe = null;
-		fps = Setting.Fps;
+		fps = systemController.GetComponent<Setting>().GetFps();
 		gyroEnable = true;
 	}
 
@@ -78,7 +79,7 @@ public class CameraMotion : MonoBehaviour {
 
 	//	joysticks = FindObjectsOfType (typeof(Joystick)) as Joystick[];
 
-		moveSpeed = Setting.CameraMotionSpeed;
+		moveSpeed = systemController.GetComponent<Setting>().GetCameraMotionSpeed();
 	}
 
 	public void ResetUpAndDown(){
@@ -140,15 +141,21 @@ public class CameraMotion : MonoBehaviour {
 			//then recoding the data.
 			//TODO: not like maya, in Unity3d the coordinate is left-hand.
 			//TODO: if we drag the slider, we should reset the frame  
+			cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +														//frame number
+					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
+					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
+					transform.GetComponent<Camera>().fieldOfView + "\n";
+			//display current camera information on the screen
+			CameraInfoText.text = cameraMotionKeyframe;
 
 			if(Status.IsRecording){
 				//frameNum = Status.CurrentFrameNum;
-		
+		/*
 				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +														//frame number
 					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
 					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
 					transform.GetComponent<Camera>().fieldOfView + "\n";
-
+		*/
 				if(Status.CurrentFrameNum <= Status.TotalFrameNum)
 				{	//if the frame number is small than the total number , replace the arrylist
 					cameraFrameData[Status.CurrentFrameNum - 1] = cameraMotionKeyframe;

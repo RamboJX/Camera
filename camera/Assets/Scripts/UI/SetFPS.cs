@@ -12,7 +12,7 @@ public class SetFPS : MonoBehaviour {
 	public void SetParamFps(){
 		float fps;
 		fps = System.Convert.ToInt32 (fpsString.text);
-		Setting.Fps = fps;
+	//	Setting.Set;
 		Time.fixedDeltaTime = 1.0f / fps;
 	}
 }

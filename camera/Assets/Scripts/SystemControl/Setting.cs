@@ -3,82 +3,31 @@ using System.Collections;
 
 public class Setting : MonoBehaviour {
 
-	private static readonly Setting instance = new Setting();
-	private Setting()
-	{
-	}
-
-	public static Setting GetInstance()
-	{
-		return instance;
-	}
-	
-	//private...right, can only access use instance
-	string serverIpAddress = "127.0.0.1";
-	//so make a method to get the value
-	public static string ServerIpAddress{
-		get{
-			return instance.serverIpAddress;
-		}
-		set{
-			instance.serverIpAddress = value;
-		}
-	}
-
-	
-	string objFile = "e:/scene/oneCubeTwoBall.obj";
-	public static string ObjFile{
-		get{
-			return instance.objFile;
-		}
-		set
-		{
-			instance.objFile = value;
-		}
-	}
-
-	string animFile = "E:/scene/";
-	public static string AnimFile{
-		get{
-			return instance.animFile;
-		}
-		set{
-			instance.animFile = value;
-		}
-	}
-
-
-	//camera trace store file
-	string cameraTraceFile = "E://camera.anim";
-	public static string CameraTraceFile{
-		get{
-			return instance.cameraTraceFile;
-		}
-		set{
-			instance.cameraTraceFile = value;
-		}
-	}
-
+	public static string serverIpAddress = "127.0.0.1";
 	//display FPS
-	float fps = 24;
-	public static float Fps{
-		get{
-			return instance.fps;
-		}
-		set{
-			instance.fps = value;
-		}
+	public static float fps = 24;
+	//camera motion speed
+	public static int cameraMotionSpeed = 108;
+
+	public string GetIpAddress(){
+		return Setting.serverIpAddress;
+	}
+	public void SetIpAddress(string ip){
+		Setting.serverIpAddress = ip;
 	}
 
-	//camera motion speed
-	int cameraMotionSpeed = 108;
-	public static int CameraMotionSpeed{
-		get{
-			return instance.cameraMotionSpeed;
-		}
-		set{
-			instance.cameraMotionSpeed = value;
-		}
+	public float GetFps(){
+		return Setting.fps;
+	}
+	public void SetFps(float fps){
+		Setting.fps = fps;
+	}
+
+	public int GetCameraMotionSpeed(){
+		return Setting.cameraMotionSpeed;
+	}
+	public void SetCameraMotionSpeed( int cameraMotionSpeed){
+		Setting.cameraMotionSpeed = cameraMotionSpeed;
 	}
 }
 	
