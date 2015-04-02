@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-[System.Serializable]
+//[System.Serializable]
 public class btnInfo{
 	public string fileName;
 	public bool isLoaded;
@@ -37,9 +37,14 @@ public class CreateFbxFileBtn : MonoBehaviour {
 	}
 
 	void FindFbxFilesInDirectory(){
+	//	#if UNITY_ANDROID
+		//string[] fbxFiles = Directory.GetFiles("/sdcard" + "/StreamingAssets/", "*.assetbundle");
+	//	#endif
+
+	//	#if UNITY_EDITOR_WIN
 		string[] fbxFiles = Directory.GetFiles(Application.dataPath + "/StreamingAssets/", "*.assetbundle");
 	//	string[] fbxFiles = Directory.GetFiles("/SDCard/FbxBundles/", "*.assetbundle");
-
+	//	#endif
 		for (int i = 0; i < fbxFiles.Length; i++) {
 			btnInfo temp = new btnInfo();
 			temp.fileName = fbxFiles[i];

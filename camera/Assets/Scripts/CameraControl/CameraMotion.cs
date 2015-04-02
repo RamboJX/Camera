@@ -85,8 +85,8 @@ public class CameraMotion : MonoBehaviour {
 	}
 
 	public void SetFov(){
-		FOV = transform.camera.fieldOfView + 120f * (Zoom.value - 0.25f);
-		transform.camera.fieldOfView = FOV;
+		FOV = transform.GetComponent<Camera>().fieldOfView + 120f * (Zoom.value - 0.25f);
+		transform.GetComponent<Camera>().fieldOfView = FOV;
 	}
 
 	void FixedUpdate(){
@@ -111,7 +111,7 @@ public class CameraMotion : MonoBehaviour {
 				                                     System.Convert.ToSingle(brokenString[6]), 
 				                                     System.Convert.ToSingle(brokenString[7]),
 				                                     System.Convert.ToSingle(brokenString[8]));
-				transform.camera.fieldOfView = System.Convert.ToSingle(brokenString[9]);
+				transform.GetComponent<Camera>().fieldOfView = System.Convert.ToSingle(brokenString[9]);
 
 				Status.CurrentFrameNum = Status.CurrentFrameNum + 1;
 			}
@@ -142,7 +142,7 @@ public class CameraMotion : MonoBehaviour {
 				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +																	//frame number
 					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
 					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
-					transform.camera.fieldOfView + "\n";
+					transform.GetComponent<Camera>().fieldOfView + "\n";
 
 				if(Status.CurrentFrameNum <= Status.TotalFrameNum)
 				{	//if the frame number is small than the total number , replace the arrylist
@@ -162,6 +162,14 @@ public class CameraMotion : MonoBehaviour {
 				cameraFrameData.Clear();
 			}
 		}
+	}
+
+	public void FocusToObject(GameObject obj)
+	{
+		//direction from camera to the object
+		Vector3 direction = obj.renderer.bounds.center - transform.position;
+		//rotate the camera to lookAt the object;
+		transform.LookAt (direction);
 	}
 	
 }
