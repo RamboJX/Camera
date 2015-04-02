@@ -6,6 +6,7 @@ public class CameraMotion : MonoBehaviour {
 
 	public Scrollbar Zoom;
 	public Scrollbar UpAndDown;
+	public Text FovText;
 
 	private string cameraAnimFile;
 	private string cameraMotionKeyframe;
@@ -85,8 +86,12 @@ public class CameraMotion : MonoBehaviour {
 	}
 
 	public void SetFov(){
-		FOV = transform.GetComponent<Camera>().fieldOfView + 120f * (Zoom.value - 0.25f);
+		//FOV = transform.GetComponent<Camera>().fieldOfView + 140f * (Zoom.value - 0.5f);
+		// surppose the initial fov is 80
+		FOV = 80f + 140f * (Zoom.value - 0.5f);
 		transform.GetComponent<Camera>().fieldOfView = FOV;
+		FovText.text = "FOV:" + FOV.ToString ();
+
 	}
 
 	void FixedUpdate(){
@@ -139,7 +144,7 @@ public class CameraMotion : MonoBehaviour {
 			if(Status.IsRecording){
 				//frameNum = Status.CurrentFrameNum;
 		
-				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +																	//frame number
+				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +														//frame number
 					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
 					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
 					transform.GetComponent<Camera>().fieldOfView + "\n";
@@ -170,6 +175,10 @@ public class CameraMotion : MonoBehaviour {
 		Vector3 direction = obj.renderer.bounds.center - transform.position;
 		//rotate the camera to lookAt the object;
 		transform.LookAt (direction);
+	}
+
+	public float GetFov(){
+		return FOV;
 	}
 	
 }
