@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SystemControl : MonoBehaviour {
-
+	public Text debugText;
 	// Use this for initialization
 	void Start () {
 	
@@ -20,5 +21,9 @@ public class SystemControl : MonoBehaviour {
 
 	public void QuitApp(){
 		Application.Quit();
+	}
+
+	public void DisplayDebugInfo(string info){
+		debugText.text = info;
 	}
 }

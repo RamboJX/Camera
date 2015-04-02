@@ -104,7 +104,8 @@ public class CameraMotion : MonoBehaviour {
 			if(Status.CurrentFrameNum <= Status.TotalFrameNum){
 
 				cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1].ToString();
-
+				//display the camera motion key frame data;
+				CameraInfoText.text = cameraMotionKeyframe;
 				//parse cameraMotionKeyframe
 				brokenString = cameraMotionKeyframe.Split(splitIdentifier);
 

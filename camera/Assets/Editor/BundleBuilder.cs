@@ -5,7 +5,7 @@ using UnityEditor;
 public class BundleBuilder : Editor
 {
 	//打包单个
-	[MenuItem("Custom Editor/Create AssetBunldes Main")]
+	[MenuItem("Custom Editor/Create AssetBunldes For Windows")]
 	static void CreateAssetBunldesMain ()
 	{
 		//获取在Project视图中选择的所有游戏对象
@@ -29,6 +29,28 @@ public class BundleBuilder : Editor
 		//刷新编辑器
 		AssetDatabase.Refresh ();	
 		
+	}
+
+
+	[MenuItem("Custom Editor/Create AssetBunldes For Android")]
+	static void CreateAssetBunldesAndroid ()
+	{
+		Object[] SelectedAsset = Selection.GetFiltered (typeof(Object), SelectionMode.DeepAssets);
+
+		foreach (Object obj in SelectedAsset) 
+		{
+			string targetPath = Application.dataPath + "/StreamingAssets/" + obj.name + ".assetbundle";
+
+			//public static bool BuildAssetBundle(Object mainAsset, Object[] assets, string pathName, out uint crc, BuildAssetBundleOptions assetBundleOptions, BuildTarget targetPlatform);
+			if (BuildPipeline.BuildAssetBundle (obj, null, targetPath, BuildAssetBundleOptions.CollectDependencies, BuildTarget.Android)) {
+				Debug.Log(obj.name +"资源打包成功");
+			} 
+			else 
+			{
+				Debug.Log(obj.name +"资源打包失败");
+			}
+		}
+		AssetDatabase.Refresh ();	
 	}
 	
 	[MenuItem("Custom Editor/Create AssetBunldes ALL")]
