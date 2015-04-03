@@ -37,18 +37,14 @@ public class CreateFbxFileBtn : MonoBehaviour {
 	}
 
 	void FindFbxFilesInDirectory(){
-	//	#if UNITY_ANDROID
-		//string[] fbxFiles = Directory.GetFiles("/sdcard" + "/StreamingAssets/", "*.assetbundle");
-	//	#endif
-
 	//	#if UNITY_EDITOR_WIN
 	//	string[] fbxFiles = Directory.GetFiles(Application.dataPath + "/StreamingAssets/", "*.assetbundle");
-	//	string[] fbxFiles = Directory.GetFiles("/SDCard/FbxBundles/", "*.assetbundle");
 	//	#endif
 
 		//if in android environment
-		string[] fbxFiles = System.IO.Directory.GetFiles("/sdcard/scene/", "*.assetbundle");
+		string[] fbxFiles = System.IO.Directory.GetFiles("/mnt/sdcard/scene/", "*.assetbundle");
 
+		//string[] fbxFiles = Directory.GetFiles(Application.dataPath + "/StreamingAssets/", "*.assetbundle");
 		for (int i = 0; i < fbxFiles.Length; i++) {
 			btnInfo temp = new btnInfo();
 			temp.fileName = fbxFiles[i];

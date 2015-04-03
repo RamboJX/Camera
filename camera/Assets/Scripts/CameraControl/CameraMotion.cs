@@ -10,90 +10,76 @@ public class CameraMotion : MonoBehaviour {
 	public Text CameraInfoText;			//display the camera informations
 	public GameObject systemController;	//get the system controller
 
-	private string cameraMotionKeyframe;
-	private float fps = 24;					//default fps is 24
+	//default fps is 24
+	private float fps = 24;					
 
 	//camera motion vector variables
 	private Vector3 cameraTranslateVector = Vector3.zero;
 
-	//gyroscope ration fix
-	private bool gyroEnable;
+	//////////////Motion Controller
+	//gyroscope
+	private bool isGyro;
+	private Vector3 initialOrientation;
 
-	//gyroscope value
-	private Gyroscope gyro;
-	private Quaternion rotFix;
-	bool isGyro;
-	private Quaternion camRot;
-
+	//field of view
 	private float FOV;
-
-	char [] splitIdentifier = {';'};
-	string [] brokenString;
+	
 	//joysticks
 	private Joystick joystick;
 
-	
-	int moveSpeed;
-	//bool IsFirstReviewingFrame = true;					//this store the current frame number of the movie
 
+
+	///	temperary variables/// 
+	private char [] splitIdentifier = {';'};
+	private string [] brokenString;
+	private int moveSpeed;
 	//this array list is used to store the camera trace keyframes;
-	ArrayList cameraFrameData = new ArrayList ();
-	ArrayList cameraCurrentFrameInfo = new ArrayList();
+	private ArrayList cameraFrameData = new ArrayList ();
+	private ArrayList cameraCurrentFrameInfo = new ArrayList();
+	//camera motion keyframe string data
+	private string cameraMotionKeyframe;
+
+
+
+
 
 	void Awake(){
-
-		//Zoom = GameObject.FindGameObjectWithTag (Tags.zoomBar).GetComponent<Scrollbar> ();
+		//initial the joystick
 		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
-
 		cameraMotionKeyframe = null;
 		fps = systemController.GetComponent<Setting>().GetFps();
-		gyroEnable = true;
+		moveSpeed = systemController.GetComponent<Setting>().GetCameraMotionSpeed();
 	}
 
 	// Use this for initialization
 	void Start () {
 		Time.fixedDeltaTime = 1.0f / fps;
 		Input.gyro.enabled = true;
-
 		isGyro = Input.isGyroAvailable;
 	
 		if(isGyro)
 		{
-			if (Screen.orientation == ScreenOrientation.LandscapeLeft) {
-				transform.eulerAngles = new Vector3 (90, 0, 0);
-			} 
-			else if (Screen.orientation == ScreenOrientation.Portrait) {
-				transform.eulerAngles = new Vector3(180, 0, 0);		
-			}
-
-			if (Screen.orientation == ScreenOrientation.LandscapeLeft) {
-				rotFix = new Quaternion(0, 0, 0.7071f, 0);		//I dont know why this value?		
-			}
-			else if(Screen.orientation == ScreenOrientation.Portrait){
-				rotFix = new Quaternion(0, 1.0f, 0, 0);
-			}
+			initialOrientation = Input.gyro.rotationRateUnbiased;
 		}
 		else{
 			print ("NO gyro");
 		}
-
-	//	joysticks = FindObjectsOfType (typeof(Joystick)) as Joystick[];
-
-		moveSpeed = systemController.GetComponent<Setting>().GetCameraMotionSpeed();
 	}
 
 	public void ResetUpAndDown(){
 		UpAndDown.value = 0.5f;
 	}
 
+
+	//Use the bar to set FOV
 	public void SetFov(){
-		//FOV = transform.GetComponent<Camera>().fieldOfView + 140f * (Zoom.value - 0.5f);
-		// surppose the initial fov is 80
 		FOV = 80f + 140f * (Zoom.value - 0.5f);
 		transform.GetComponent<Camera>().fieldOfView = FOV;
 		FovText.text = "FOV:" + FOV.ToString ();
 
 	}
+
+
 
 	void FixedUpdate(){
 		if (Status.IsReviewing){
@@ -127,8 +113,8 @@ public class CameraMotion : MonoBehaviour {
 			//print ("I am here");
 			//use the gyroscope and joystick to control the camera motion
 			if(isGyro){
-				camRot = Input.gyro.attitude * rotFix;
-				transform.localRotation = camRot;
+				//camRot = Input.gyro.attitude * rotFix;
+				transform.Rotate(initialOrientation - Input.gyro.rotationRateUnbiased);
 			}
 
 			//joysticks[0] is the left joystick
