@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class CameraMotion : MonoBehaviour {
 
@@ -9,6 +11,7 @@ public class CameraMotion : MonoBehaviour {
 	public Text FovText;			//display the fov
 	public Text CameraInfoText;			//display the camera informations
 	public GameObject systemController;	//get the system controller
+	//public string filePath = "/sdcard/keyframe.txt";
 
 	//default fps is 24
 	private float fps = 24;					
@@ -26,29 +29,25 @@ public class CameraMotion : MonoBehaviour {
 	
 	//joysticks
 	private Joystick joystick;
-
-
-
+	
 	///	temperary variables/// 
 	private char [] splitIdentifier = {';'};
 	private string [] brokenString;
 	private int moveSpeed;
 	//this array list is used to store the camera trace keyframes;
-	private ArrayList cameraFrameData = new ArrayList ();
-	private ArrayList cameraCurrentFrameInfo = new ArrayList();
+//	private ArrayList cameraFrameData = new ArrayList ();
+	//we should use list 
+	private List<string> cameraFrameData = new List<string> ();
+	
 	//camera motion keyframe string data
 	private string cameraMotionKeyframe;
-
-
-
-
-
+	
 	void Awake(){
 		//initial the joystick
 		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
 		cameraMotionKeyframe = null;
-		fps = systemController.GetComponent<Setting>().GetFps();
-		moveSpeed = systemController.GetComponent<Setting>().GetCameraMotionSpeed();
+		fps = Setting.fps;
+		moveSpeed = Setting.cameraMotionSpeed;
 	}
 
 	// Use this for initialization
@@ -85,18 +84,16 @@ public class CameraMotion : MonoBehaviour {
 		if (Status.IsReviewing){
 			//this option is when review the camera trace
 			//TODO:first get the current frame camera motion, then translate to there.
-			//print ("reviewing frame is :"
-		
 			if(Status.CurrentFrameNum <= Status.TotalFrameNum){
 
-				cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1].ToString();
+				//cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1].ToString();
+				cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1];
 				//display the camera motion key frame data;
 				CameraInfoText.text = cameraMotionKeyframe;
 				//parse cameraMotionKeyframe
 				brokenString = cameraMotionKeyframe.Split(splitIdentifier);
 
-				//print ("brokenString is "+  brokenString[0] + brokenString[1] + brokenString[2]);
-				//print ("num" +Status.CurrentFrameNum + "camera motion info" + cameraMotionKeyframe);
+			
 				transform.position = new Vector3(System.Convert.ToSingle(brokenString[2]), 
 												System.Convert.ToSingle(brokenString[3]), 
 				                                System.Convert.ToSingle(brokenString[4]));
@@ -105,24 +102,22 @@ public class CameraMotion : MonoBehaviour {
 				                                     System.Convert.ToSingle(brokenString[7]),
 				                                     System.Convert.ToSingle(brokenString[8]));
 				transform.GetComponent<Camera>().fieldOfView = System.Convert.ToSingle(brokenString[9]);
-
 				Status.CurrentFrameNum = Status.CurrentFrameNum + 1;
 			}
 		}
 		else {
-			//print ("I am here");
 			//use the gyroscope and joystick to control the camera motion
+			//camera rotation
 			if(isGyro){
-				//camRot = Input.gyro.attitude * rotFix;
 				transform.Rotate(initialOrientation - Input.gyro.rotationRateUnbiased);
 			}
 
-			//joysticks[0] is the left joystick
+
 			cameraTranslateVector.x = joystick.position.x;		//left&right
-			//cameraTranslateVector.z = joystick.position.y;		//front back
-			cameraTranslateVector.z = joystick.position.y;
+			cameraTranslateVector.z = joystick.position.y;		//front back
 			cameraTranslateVector.y = (UpAndDown.value - 0.5f)*2f;		//up down
-			transform.Translate (cameraTranslateVector * moveSpeed * Time.fixedDeltaTime, Space.World);
+
+			transform.Translate (cameraTranslateVector * moveSpeed * Time.fixedDeltaTime, Space.Self);
 			
 	
 			//then recoding the data.
@@ -136,13 +131,6 @@ public class CameraMotion : MonoBehaviour {
 			CameraInfoText.text = cameraMotionKeyframe;
 
 			if(Status.IsRecording){
-				//frameNum = Status.CurrentFrameNum;
-		/*
-				cameraMotionKeyframe = "camera" + ";" + Status.CurrentFrameNum + ";" +														//frame number
-					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
-					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
-					transform.GetComponent<Camera>().fieldOfView + "\n";
-		*/
 				if(Status.CurrentFrameNum <= Status.TotalFrameNum)
 				{	//if the frame number is small than the total number , replace the arrylist
 					cameraFrameData[Status.CurrentFrameNum - 1] = cameraMotionKeyframe;
@@ -174,5 +162,40 @@ public class CameraMotion : MonoBehaviour {
 	public float GetFov(){
 		return FOV;
 	}
-	
+	/*
+	public bool StoreCameraKeyframes(string path){
+		File CameraKeyframesFile = new File
+	}
+	*/
+	public void OutputKeyframes(){
+		string keyframeFilePath = "";
+		if(Application.platform == RuntimePlatform.Android)
+		{
+			keyframeFilePath = "/sdcard/" + Setting.keyframeFilePath;
+		}
+		else if(Application.platform == RuntimePlatform.WindowsPlayer){
+			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
+		}
+		else if(Application.platform == RuntimePlatform.WindowsEditor)
+		{
+			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
+		}
+
+		FileInfo cameraKeyframeFile = new FileInfo (keyframeFilePath);
+		if (!cameraKeyframeFile.Exists) {	
+			using(StreamWriter keyframeFileSw = cameraKeyframeFile.CreateText()){
+				for(int index = 0; index < cameraFrameData.Count; index++){
+					cameraMotionKeyframe = cameraFrameData[index];
+					keyframeFileSw.WriteLine(cameraMotionKeyframe);
+				}
+				keyframeFileSw.Flush();
+				keyframeFileSw.Close();
+				cameraFrameData.Clear();
+			}
+		}
+		else//if there is a file
+		{
+			systemController.GetComponent<SystemControl>().DisplayDebugInfo ("There is already have this file");
+		}
+	}
 }

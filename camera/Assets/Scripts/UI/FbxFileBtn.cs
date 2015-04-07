@@ -11,7 +11,8 @@ public class FbxFileBtn : MonoBehaviour {
 	//will set this envent to the btnInfo::loadFbxFile variable;
 	public void LoadFbxFile(){
 		string ObjectsPathURL = "file://" + name.text;
-		GameObject.Find ("SystemControl").GetComponent<SystemControl> ().DisplayDebugInfo (ObjectsPathURL + "____This scene to load");
+		//GameObject.Find("SystemControl").GetComponent<SystemControl>().DisplayDebugInfo(Application.persistentDataPath + "____application's path");
+		GameObject.Find("SystemControl").GetComponent<SystemControl>().DisplayDebugInfo("load gameobject path:" + ObjectsPathURL);
 		StartCoroutine(LoadGameObject(ObjectsPathURL));
 	}
 

@@ -79,39 +79,4 @@ public class Status : MonoBehaviour {
 			instance.totalFrameNum = value;
 		}
 	}
-
-	ArrayList objectNames = new ArrayList();
-	public static ArrayList ObjectNames{
-		get{
-			return instance.objectNames;
-		}
-	}
-
-	public static void AddObjectNameToList(string objectName){
-		instance.objectNames.Add (objectName);
-	}
-
-	public static bool IsObjectInScene(string objectName){
-		return instance.objectNames.Contains (objectName);
-	}
-
-	public static void RemoveObjectFromList(string objectName){
-		instance.objectNames.Remove (objectName);
-	}
-
-	public static void RemoveObjectFromListAt(int index){
-		instance.objectNames.RemoveAt (index);
-	}
-
-	bool isUIOn = false;
-	public static bool IsUIOn{
-		get{
-			return instance.isUIOn;
-		}
-		set{
-			instance.isUIOn = value;
-		}
-	}
-
-
 }

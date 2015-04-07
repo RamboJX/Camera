@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class SystemControl : MonoBehaviour {
 	public Text debugText;
+	void Awake(){
+	//	debugText = GameObject.Find ("SettingText");
+	}
 	// Use this for initialization
 	void Start () {
 	

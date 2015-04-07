@@ -4,7 +4,7 @@ using UnityEditor;
 
 public class BundleBuilder : Editor
 {
-	//打包单个
+
 	[MenuItem("Custom Editor/Create AssetBunldes For Windows")]
 	static void CreateAssetBunldesMain ()
 	{
@@ -52,7 +52,7 @@ public class BundleBuilder : Editor
 		}
 		AssetDatabase.Refresh ();	
 	}
-	
+	/*
 	[MenuItem("Custom Editor/Create AssetBunldes ALL")]
 	static void CreateAssetBunldesALL ()
 	{
@@ -86,5 +86,6 @@ public class BundleBuilder : Editor
 		BuildPipeline.BuildPlayer( levels, Path,BuildTarget.WebPlayer, BuildOptions.BuildAdditionalStreamedScenes);
 		AssetDatabase.Refresh ();
 	}
+	*/
 	
 }

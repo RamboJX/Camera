@@ -7,19 +7,22 @@ public class SettingControl : MonoBehaviour {
 	public InputField IPInputField;
 	public InputField FpsInputField;
 	public InputField MoveSpeedInputField;
+	public InputField KeyframeFilePathInputField;
+
 	public GameObject SystemControl;
 	public Text settingInfoText;
 
 	void Awake(){
-		settingInfoText.text = "Setting:" + " IP:" + SystemControl.GetComponent<Setting> ().GetIpAddress() 
-				+ ", FPS:" + SystemControl.GetComponent<Setting> ().GetFps ().ToString()
-				+ ", MoveSpeed:" + SystemControl.GetComponent<Setting> ().GetCameraMotionSpeed ().ToString ();
+		settingInfoText.text = "Setting:" + " IP:" + Setting.serverIpAddress
+			+ ", FPS:" + Setting.fps.ToString ()
+				+ ", MoveSpeed:" + Setting.cameraMotionSpeed.ToString () + ", keyframes file:" + Setting.keyframeFilePath ;
 	}
 
 	void OnEnable(){
-		IPInputField.text = SystemControl.GetComponent<Setting> ().GetIpAddress();
-		FpsInputField.text = SystemControl.GetComponent<Setting> ().GetFps ().ToString();
-		MoveSpeedInputField.text = SystemControl.GetComponent<Setting> ().GetCameraMotionSpeed ().ToString ();
+		IPInputField.text = Setting.serverIpAddress;
+		FpsInputField.text = Setting.fps.ToString ();
+		MoveSpeedInputField.text = Setting.cameraMotionSpeed.ToString ();
+		KeyframeFilePathInputField.text = Setting.keyframeFilePath;
 	}
 
 	// Use this for initialization
@@ -34,9 +37,11 @@ public class SettingControl : MonoBehaviour {
 	
 
 	public void SettingApply(){
-		SystemControl.GetComponent<Setting> ().SetCameraMotionSpeed (System.Convert.ToInt32(MoveSpeedInputField.text));
-		SystemControl.GetComponent<Setting> ().SetFps ((float)System.Convert.ToDouble(FpsInputField.text));
-		SystemControl.GetComponent<Setting> ().SetIpAddress (IPInputField.text);
-		settingInfoText.text = "Setting:" + " IP:" + IPInputField.text + ", FPS:" + FpsInputField.text + ", MoveSpeed:" + MoveSpeedInputField.text;
+		Setting.cameraMotionSpeed = System.Convert.ToInt32(MoveSpeedInputField.text);
+		Setting.fps= (float)System.Convert.ToDouble(FpsInputField.text);
+		Setting.serverIpAddress = IPInputField.text;
+		Setting.keyframeFilePath = KeyframeFilePathInputField.text;
+		settingInfoText.text = "Setting:" + " IP:" + IPInputField.text + ", FPS:" + FpsInputField.text +
+			", MoveSpeed:" + MoveSpeedInputField.text + ", keyframes file:" + KeyframeFilePathInputField.text;
 	}
 }
