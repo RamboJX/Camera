@@ -53,7 +53,7 @@ public class CreateFbxFileBtn : MonoBehaviour {
 		else if(Application.platform == RuntimePlatform.WindowsEditor)
 		{
 			print ("here");
-			foreach(string file in Directory.GetFiles(Application.dataPath + "/StreamingAssets/", "*.assetbundle")){
+			foreach(string file in Directory.GetFiles(Application.streamingAssetsPath, "*.assetbundle")){
 				print (file);
 				fbxFiles.Add(file);
 			}
