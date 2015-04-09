@@ -1,14 +1,5 @@
-camera/Keyboard
-camera/Library
 camera/other_project
-camera/ProjectSettings
 camera/Temp
-camera/*.DS_Store
-camera/*.sln
-camera/*.pidb
-camera/*.unityproj
-camera/*.userprefs
-camera/*.csproj
 camera/**/*.meta
 desertScene/
 422015/
