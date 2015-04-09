@@ -41,7 +41,7 @@ public class CreateFbxFileBtn : MonoBehaviour {
 
 		if(Application.platform == RuntimePlatform.Android)
 		{
-			foreach(string file in Directory.GetFiles("file://" + Application.persistentDataPath + "/StreamingAssets/", "*.assetbundle")){
+			foreach(string file in Directory.GetFiles(Application.persistentDataPath, "*.assetbundle")){
 				fbxFiles.Add(file);
 			}
 		}
@@ -98,23 +98,5 @@ public class CreateFbxFileBtn : MonoBehaviour {
 			newFbxFileBtn.transform.SetParent(fbxFileListScrollPanel);
 		}
 	}
-
-	public static string AssetbundleBaseURL
-	{
-		get
-		{
-			if (Application.platform == RuntimePlatform.WindowsWebPlayer || Application.platform == RuntimePlatform.OSXWebPlayer)
-			{
-				return Application.dataPath + "/assetbundles/";
-			}
-			else if (Application.platform == RuntimePlatform.Android)
-			{
-				return "file:///mnt/sdcard/scene/";
-			}
-			else
-			{
-				return "file://" + Application.dataPath + "/../assetbundles/";
-			}
-		}
-	}
+	
 }

@@ -169,9 +169,10 @@ public class CameraMotion : MonoBehaviour {
 	*/
 	public void OutputKeyframes(){
 		string keyframeFilePath = "";
+
 		if(Application.platform == RuntimePlatform.Android)
 		{
-			keyframeFilePath = "/sdcard/" + Setting.keyframeFilePath;
+			keyframeFilePath = "/sdcard/keyframes/" + Setting.keyframeFilePath;
 		}
 		else if(Application.platform == RuntimePlatform.WindowsPlayer){
 			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
@@ -180,7 +181,16 @@ public class CameraMotion : MonoBehaviour {
 		{
 			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
 		}
+/*
 
+#if UNITY_ANDROID
+			keyframeFilePath = "/sdcard/keyframes/" + Setting.keyframeFilePath;
+#elif UNITY_EDITOR
+			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
+#else
+			keyframeFilePath = "E:/keyframeData/" + Setting.keyframeFilePath;
+#endif
+*/
 		FileInfo cameraKeyframeFile = new FileInfo (keyframeFilePath);
 		if (!cameraKeyframeFile.Exists) {	
 			using(StreamWriter keyframeFileSw = cameraKeyframeFile.CreateText()){
