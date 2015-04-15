@@ -24,7 +24,7 @@ namespace TCPConnector
 		
 		public TCPClienter(){}
 		
-		public bool fnConnectResult(string sNetIP, int iPORT_NUM)
+		public bool fnConnect(string sNetIP, int iPORT_NUM)
 		{
 			try 
 			{
@@ -42,6 +42,11 @@ namespace TCPConnector
 			{
 				return false;
 			}
+		}
+
+		public bool fnClose(){
+			client.Close ();
+			return true;
 		}
 
 		private void DoRead(IAsyncResult ar)

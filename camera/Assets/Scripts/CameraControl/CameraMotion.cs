@@ -13,6 +13,8 @@ public class CameraMotion : MonoBehaviour {
 	public GameObject systemController;	//get the system controller
 	//public string filePath = "/sdcard/keyframe.txt";
 
+	private TCPConnector.TCPClienter client;
+
 	//default fps is 24
 	private float fps = 24;					
 
@@ -44,6 +46,7 @@ public class CameraMotion : MonoBehaviour {
 	
 	void Awake(){
 		//initial the joystick
+		client = systemController.GetComponent<SystemControl> ().netClient;
 		joystick = GameObject.FindGameObjectWithTag (Tags.joystick).GetComponent<Joystick> ();
 		cameraMotionKeyframe = null;
 		fps = Setting.fps;
@@ -129,6 +132,11 @@ public class CameraMotion : MonoBehaviour {
 					transform.GetComponent<Camera>().fieldOfView + "\n";
 			//display current camera information on the screen
 			CameraInfoText.text = cameraMotionKeyframe;
+
+			//if is connected to server send the camera info text to server synchronized
+			if(Setting.connected){
+				client.SendData(cameraMotionKeyframe);
+			}
 
 			if(Status.IsRecording){
 				if(Status.CurrentFrameNum <= Status.TotalFrameNum)

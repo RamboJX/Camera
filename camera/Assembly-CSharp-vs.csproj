@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\UI\FbxFileBtn.cs" />
      <Compile Include="Assets\Scripts\UI\FilmProgressBar.cs" />
      <Compile Include="Assets\Scripts\UI\GameObjectImportBtn.cs" />
+     <Compile Include="Assets\Scripts\UI\MessageController.cs" />
      <Compile Include="Assets\Scripts\UI\ObjectCtrlBtn.cs" />
      <Compile Include="Assets\Scripts\UI\ObjectToggle.cs" />
      <Compile Include="Assets\Scripts\UI\SceneBtn.cs" />
