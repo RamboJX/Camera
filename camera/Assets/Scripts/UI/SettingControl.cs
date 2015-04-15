@@ -13,8 +13,7 @@ public class SettingControl : MonoBehaviour {
 	public Text settingInfoText;
 
 	void Awake(){
-		settingInfoText.text = "Setting:" + " IP:" + Setting.serverIpAddress
-			+ ", FPS:" + Setting.fps.ToString ()
+		settingInfoText.text = "Setting:" + " IP:" + Setting.serverIpAddress + ", FPS:" + Setting.fps.ToString ()
 				+ ", MoveSpeed:" + Setting.cameraMotionSpeed.ToString () + ", keyframes file:" + Setting.keyframeFilePath ;
 	}
 
