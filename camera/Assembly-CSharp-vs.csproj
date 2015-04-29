@@ -46,29 +46,28 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CameraControl\CameraMotion.cs" />
-     <Compile Include="Assets\Scripts\CameraControl\RecordFilm.cs" />
-     <Compile Include="Assets\Scripts\CameraControl\ReviewFilm.cs" />
-     <Compile Include="Assets\Scripts\Logical\TcpClientTest.cs" />
-     <Compile Include="Assets\Scripts\Logical\Test.cs" />
-     <Compile Include="Assets\Scripts\SceneControl\ImportAsset.cs" />
-     <Compile Include="Assets\Scripts\SceneControl\Status.cs" />
-     <Compile Include="Assets\Scripts\Sensor\Joystick.cs" />
-     <Compile Include="Assets\Scripts\SystemControl\ObjectController.cs" />
+     <Compile Include="Assets\Scripts\MotionCtrl\CameraMotion.cs" />
+     <Compile Include="Assets\Scripts\MotionCtrl\Joystick.cs" />
+     <Compile Include="Assets\Scripts\Network\TcpClient.cs" />
      <Compile Include="Assets\Scripts\SystemControl\Setting.cs" />
+     <Compile Include="Assets\Scripts\SystemControl\Status.cs" />
      <Compile Include="Assets\Scripts\SystemControl\SystemControl.cs" />
      <Compile Include="Assets\Scripts\SystemControl\Tags.cs" />
-     <Compile Include="Assets\Scripts\SystemControl\TcpClient.cs" />
-     <Compile Include="Assets\Scripts\UI\CreateFbxFileBtn.cs" />
-     <Compile Include="Assets\Scripts\UI\FbxFileBtn.cs" />
+     <Compile Include="Assets\Scripts\Test\ImportAsset.cs" />
+     <Compile Include="Assets\Scripts\Test\TcpClientTest.cs" />
+     <Compile Include="Assets\Scripts\Test\Test.cs" />
      <Compile Include="Assets\Scripts\UI\FilmProgressBar.cs" />
-     <Compile Include="Assets\Scripts\UI\GameObjectImportBtn.cs" />
      <Compile Include="Assets\Scripts\UI\MessageController.cs" />
      <Compile Include="Assets\Scripts\UI\ObjectCtrlBtn.cs" />
-     <Compile Include="Assets\Scripts\UI\ObjectToggle.cs" />
+     <Compile Include="Assets\Scripts\UI\ObjectCtrlPanel\ObjectController.cs" />
+     <Compile Include="Assets\Scripts\UI\ObjectCtrlPanel\ObjectToggle.cs" />
+     <Compile Include="Assets\Scripts\UI\RecordFilm.cs" />
+     <Compile Include="Assets\Scripts\UI\ReviewFilm.cs" />
      <Compile Include="Assets\Scripts\UI\SceneBtn.cs" />
+     <Compile Include="Assets\Scripts\UI\ScenePanel\CreateFbxFileBtn.cs" />
+     <Compile Include="Assets\Scripts\UI\ScenePanel\FbxFileBtn.cs" />
      <Compile Include="Assets\Scripts\UI\SettingBtn.cs" />
-     <Compile Include="Assets\Scripts\UI\SettingControl.cs" />
+     <Compile Include="Assets\Scripts\UI\SettingPanel\SettingControl.cs" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Detail.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Miscellaneous Shaders\Mobile Background.shader" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Particles Additive Culled.shader" />

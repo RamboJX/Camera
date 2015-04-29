@@ -11,6 +11,7 @@ public class Setting : MonoBehaviour {
 	public static string keyframeFilePath = "keyframeFile.txt";
 
 	public static bool connected = false;
+	public static bool isSendCameraKeyFrame = false;
 
 }
 	

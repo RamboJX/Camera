@@ -6,11 +6,13 @@ using TCPConnector;
 
 public class SystemControl : MonoBehaviour {
 	//public Text debugText;
-	public TCPClienter netClient =  new TCPClienter();
+	public TCPClienter netClient;
 	public GameObject infoPannel;
+	public Toggle sendKeyframe;
 
 	void Awake(){
 	//	debugText = GameObject.Find ("SettingText");
+		netClient =  new TCPClienter();
 	}
 	// Use this for initialization
 	void Start () {
@@ -45,6 +47,10 @@ public class SystemControl : MonoBehaviour {
 			infoPannel.GetComponent<MessageController>().printConnectInfo("CONNECTED");
 			Setting.connected = true;
 		}
+	}
+
+	public void IsEnableSendKeyframe(){
+		Setting.isSendCameraKeyFrame = sendKeyframe.isOn;
 	}
 
 	public void ReloadLevel(){
