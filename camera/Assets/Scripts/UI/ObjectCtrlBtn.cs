@@ -17,4 +17,9 @@ public class ObjectCtrlBtn : MonoBehaviour {
 			ObjectCtrlPanel.SetActive (true);
 		
 	}
+
+	public void CloseObjPanel()
+	{
+		ObjectCtrlPanel.SetActive (false);
+	}
 }

@@ -40,7 +40,6 @@ public class CameraMotion : MonoBehaviour {
 //	private ArrayList cameraFrameData = new ArrayList ();
 	//we should use list 
 	private List<string> cameraFrameData = new List<string> ();
-	private List<string> cameraFrameDataEuler = new List<string> ();
 	
 	//camera motion keyframe string data
 	private string cameraMotionKeyframe;
@@ -93,9 +92,8 @@ public class CameraMotion : MonoBehaviour {
 
 				//cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1].ToString();
 				cameraMotionKeyframe = cameraFrameData[Status.CurrentFrameNum - 1];
-				cameraMotionKeyframeEuler = cameraFrameDataEuler[Status.CurrentFrameNum - 1];
 				//display the camera motion key frame data;
-				CameraInfoText.text = cameraMotionKeyframeEuler;
+				CameraInfoText.text = cameraMotionKeyframe;
 				//parse cameraMotionKeyframe
 				brokenString = cameraMotionKeyframe.Split(splitIdentifier);
 
@@ -133,29 +131,21 @@ public class CameraMotion : MonoBehaviour {
 					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
 					transform.rotation.x + ";" + transform.rotation.y + ";" + transform.rotation.z + ";" + transform.rotation.w + ";" +		//rotation
 					transform.GetComponent<Camera>().fieldOfView + "\n";
-		
-			cameraMotionKeyframeEuler = "camera" + ";" + Status.CurrentFrameNum + ";" +														//frame number
-					transform.position.x + ";" + transform.position.y + ";" + transform.position.z + ";" +									//position
-					transform.localEulerAngles.x + ";" + transform.localEulerAngles.y + ";" + transform.localEulerAngles.z + ";" +		//rotation
-					transform.GetComponent<Camera>().fieldOfView + "\n";
-		
 
 
 			//display current camera information on the screen
-			CameraInfoText.text = cameraMotionKeyframeEuler;
+			CameraInfoText.text = cameraMotionKeyframe;
 			//if is connected to server send the camera info text to server synchronized
 			if(Setting.connected && Setting.isSendCameraKeyFrame){
-				client.SendData(cameraMotionKeyframeEuler);
+				client.SendData(cameraMotionKeyframe);
 			}
 
 			if(Status.IsRecording){
 				if(Status.CurrentFrameNum <= Status.TotalFrameNum)
 				{	//if the frame number is small than the total number , replace the arrylist
 					cameraFrameData[Status.CurrentFrameNum - 1] = cameraMotionKeyframe;
-					cameraFrameDataEuler[Status.CurrentFrameNum - 1] = cameraMotionKeyframeEuler;
 				}else{	//else add to the arraylist 
 					cameraFrameData.Add(cameraMotionKeyframe);
-					cameraFrameDataEuler.Add(cameraMotionKeyframeEuler);
 
 				}
 				Status.CurrentFrameNum = Status.CurrentFrameNum + 1;
