@@ -1,25 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\unity5vc\virtualCamera\camera\Assets\Standard Assets (Mobile)\Scripts\ObliqueNear.js">
     <Files>
-      <File FileName="Assets\Scripts\SystemControl\SystemControl.cs" Line="28" Column="1" />
-      <File FileName="Assets\Scripts\SystemControl\Tags.cs" Line="10" Column="46" />
-      <File FileName="Assets\Scripts\MotionCtrl\CameraMotion.cs" Line="72" Column="2" />
-      <File FileName="Assets\Scripts\Test\Test.cs" Line="25" Column="1" />
-      <File FileName="Assets\Scripts\UI\ScenePanel\FbxFileBtn.cs" Line="11" Column="62" />
-      <File FileName="Assets\Scripts\Network\TcpClient.cs" Line="34" Column="27" />
-      <File FileName="Assets\Scripts\Test\TcpClientTest.cs" Line="22" Column="109" />
-      <File FileName="Assets\Scripts\UI\SettingPanel\SettingControl.cs" Line="7" Column="32" />
-      <File FileName="Assets\Scripts\SystemControl\Setting.cs" Line="15" Column="1" />
+      <File FileName="..\..\unity5vc\virtualCamera\camera\Assets\Scripts\MotionCtrl\CameraMotion.cs" Line="167" Column="61" />
+      <File FileName="..\..\unity5vc\virtualCamera\camera\Assets\Standard Assets (Mobile)\Scripts\ObliqueNear.js" Line="24" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="E:\VirtualCamera\camera\Assets\Scripts\SystemControl\SystemControl.cs" line="28" />
-      <Breakpoint file="E:\VirtualCamera\camera\Assets\Scripts\Network\TcpClient.cs" line="34" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
-    <Watch file="Assets\Scripts\Network\TcpClient.cs" line="41" offsetX="301" offsetY="680" expression="ex" liveUpdate="False" />
-  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
