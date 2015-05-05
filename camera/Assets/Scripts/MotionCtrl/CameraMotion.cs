@@ -24,7 +24,8 @@ public class CameraMotion : MonoBehaviour {
 	//////////////Motion Controller
 	//gyroscope
 	private bool isGyro;
-	private Vector3 initialOrientation;
+	private Gyroscope gyro;
+	private Quaternion rotFix;
 
 	//field of view
 	private float FOV;
@@ -59,10 +60,28 @@ public class CameraMotion : MonoBehaviour {
 		Time.fixedDeltaTime = 1.0f / fps;
 		Input.gyro.enabled = true;
 		isGyro = Input.isGyroAvailable;
+		gyro = Input.gyro;
 	
+		//make a parent transform node for this camera
+		Transform originalParent = transform.parent;		//if this camera has a parent
+		GameObject camParent = new GameObject("camParent");
+		camParent.transform.position = transform.position;	//let the parent node's position is the same to this camera
+		transform.parent = camParent.transform; 	//make the new camParent to this camera
+		camParent.transform.parent = originalParent;
+
 		if(isGyro)
 		{
-			initialOrientation = Input.gyro.rotationRateUnbiased;
+			if (Screen.orientation == ScreenOrientation.LandscapeLeft) {
+				camParent.transform.eulerAngles = new Vector3(90f,0f,0f);
+			} else if (Screen.orientation == ScreenOrientation.Portrait) {
+				camParent.transform.eulerAngles = new Vector3(180f,0f,0f);
+			}
+			
+			if (Screen.orientation == ScreenOrientation.LandscapeLeft) {
+				rotFix = new Quaternion(0, 0, 0.7071f, 0);
+			} else if (Screen.orientation == ScreenOrientation.Portrait) {
+				rotFix = new Quaternion(0, 0, 1f, 0);
+			}
 		}
 		else{
 			print ("NO gyro");
@@ -113,7 +132,8 @@ public class CameraMotion : MonoBehaviour {
 			//use the gyroscope and joystick to control the camera motion
 			//camera rotation
 			if(isGyro){
-				transform.Rotate(initialOrientation - Input.gyro.rotationRateUnbiased);
+				Quaternion camRot = gyro.attitude * rotFix;
+				transform.localRotation = camRot ;
 			}
 
 

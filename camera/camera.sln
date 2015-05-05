@@ -7,8 +7,6 @@ Project("{DD6D2DCC-679D-12B9-430A-9787BAB45B33}") = "camera", "Assembly-CSharp.c
 EndProject
 Project("{DD6D2DCC-679D-12B9-430A-9787BAB45B33}") = "camera", "Assembly-CSharp-Editor.csproj", "{1CF56FFE-318A-3503-E6F1-6DCF5BF57391}"
 EndProject
-Project("{DD6D2DCC-679D-12B9-430A-9787BAB45B33}") = "camera", "Assembly-UnityScript.unityproj", "{99B67133-2D80-7B7D-BE8E-5CEAA7E0490A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,15 +25,11 @@ Global
 		{1CF56FFE-318A-3503-E6F1-6DCF5BF57391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CF56FFE-318A-3503-E6F1-6DCF5BF57391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CF56FFE-318A-3503-E6F1-6DCF5BF57391}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99B67133-2D80-7B7D-BE8E-5CEAA7E0490A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99B67133-2D80-7B7D-BE8E-5CEAA7E0490A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99B67133-2D80-7B7D-BE8E-5CEAA7E0490A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99B67133-2D80-7B7D-BE8E-5CEAA7E0490A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
