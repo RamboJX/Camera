@@ -41,7 +41,7 @@ public class CreateFbxFileBtn : MonoBehaviour {
 
 		if(Application.platform == RuntimePlatform.Android)
 		{
-			foreach(string file in Directory.GetFiles("file:///mnt/sdcard/assetbundles/", "*.assetbundle")){
+			foreach(string file in Directory.GetFiles("/sdcard/3dobjects/", "*.unity3d")){
 				fbxFiles.Add(file);
 			}
 		}

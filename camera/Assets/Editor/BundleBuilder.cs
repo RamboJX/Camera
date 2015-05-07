@@ -39,7 +39,7 @@ public class BundleBuilder : Editor
 
 		foreach (Object obj in SelectedAsset) 
 		{
-			string targetPath = Application.dataPath + "/StreamingAssets/" + obj.name + ".assetbundle";
+			string targetPath = Application.dataPath + "/StreamingAssets/" + obj.name + ".unity3d";
 
 			//public static bool BuildAssetBundle(Object mainAsset, Object[] assets, string pathName, out uint crc, BuildAssetBundleOptions assetBundleOptions, BuildTarget targetPlatform);
 			if (BuildPipeline.BuildAssetBundle (obj, null, targetPath, BuildAssetBundleOptions.CollectDependencies, BuildTarget.Android)) {

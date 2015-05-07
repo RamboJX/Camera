@@ -199,6 +199,13 @@ public class CameraMotion : MonoBehaviour {
 	 */
 
 	public void OutputKeyframes(){
+		//////METHOD2. Send to MAYA and KEY
+		for(int index = 0; index < cameraFrameData.Count; index++){
+			cameraMotionKeyframe = "key" + cameraFrameData[index];
+			client.SendData(cameraMotionKeyframe);
+		}
+
+		//////METHOD1.store the keyframes to the file 
 		string keyframeFilePath = "";
 
 		if(Application.platform == RuntimePlatform.Android)
